@@ -6,9 +6,9 @@ namespace GoodLuck.Controllers
 {
     public class AnniversariesController : Controller
     {
-        private readonly DbContext _context;
+        private readonly AppDbContext _context;
 
-        public AnniversariesController(DbContext context)
+        public AnniversariesController(AppDbContext context)
         {
             _context = context;
         }
