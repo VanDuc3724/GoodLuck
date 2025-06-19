@@ -1,0 +1,23 @@
+@model IEnumerable<GoodLuck.Models.Anniversary>
+
+<h1>Anniversaries</h1>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add Anniversary</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+        <tr>
+            <td>@item.Title</td>
+            <td>@item.Date.ToString("yyyy-MM-dd")</td>
+        </tr>
+}
+    </tbody>
+</table>

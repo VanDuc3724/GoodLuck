@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using GoodLuck.Models;
+
 namespace GoodLuck
 {
     public class Program
@@ -8,6 +11,10 @@ namespace GoodLuck
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+                ?? "Data Source=app.db";
+            builder.Services.AddDbContext<GoodLuck.Models.AppDbContext>(options =>
+                options.UseSqlite(connectionString));
 
             var app = builder.Build();
 
