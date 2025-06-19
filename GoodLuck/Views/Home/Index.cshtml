@@ -1,98 +1,199 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Happy</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Happy.styles.css" asp-append-version="true" />
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Happy</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - Happy - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-</body>
-</html>
+@{
+    Layout = null;
+}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Happy</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Happy.styles.css" asp-append-version="true" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💕 Lời Nhắn Đặc Biệt - Happy Birthday My Princess</title>
+    <link rel="stylesheet" href="~/css/home.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Happy</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+    <!-- Particle System -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Floating 3D Hearts -->
+    <div class="heart-3d" style="top: 10%; left: 10%; animation-delay: 0s;">💖</div>
+    <div class="heart-3d" style="top: 20%; right: 15%; animation-delay: 2s;">💕</div>
+    <div class="heart-3d" style="bottom: 30%; left: 20%; animation-delay: 4s;">💗</div>
+    <div class="heart-3d" style="bottom: 20%; right: 10%; animation-delay: 1s;">💝</div>
+    <div class="heart-3d" style="top: 50%; left: 5%; animation-delay: 3s;">❤️</div>
+    <div class="heart-3d" style="top: 60%; right: 5%; animation-delay: 5s;">💞</div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showPage('home')">🏠 Trang Chủ</button>
+            <button class="nav-tab" onclick="showPage('birthday')">🎂 Sinh Nhật</button>
+            <button class="nav-tab" onclick="showPage('love')">💕 Tình Yêu</button>
+            <button class="nav-tab" onclick="showPage('memories')">📸 Kỷ Niệm</button>
+            <button class="nav-tab" onclick="showPage('music')">🎵 Âm Nhạc</button>
+        </div>
+
+        <div class="card">
+            <!-- Home Page -->
+            <div class="page-content active" id="home">
+                <h1 class="title">💕 Lời Nhắn Đặc Biệt</h1>
+                <p class="subtitle">Dành cho người em yêu nhất...</p>
+                
+                <div class="message">
+                    Em là thiên thần của anh,<br>
+                    Là lý do anh tin vào tình yêu đích thực.<br>
+                    Cảm ơn em vì đã làm cuộc sống anh trở nên tuyệt vời!
+                </div>
+
+                <button class="main-button" onclick="showSpecialMessage()">
+                    💖 Hiển Thị Lời Nhắn
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+
+                <div class="special-message" id="specialMessage">
+                    <button class="close-btn" onclick="hideSpecialMessage()">×</button>
+                    <div class="message-text">
+                        <span class="pulse-heart">💖</span> Em là thiên thần của anh,<br>
+                        Là lý do anh tin vào tình yêu đích thực.<br>
+                        Cảm ơn em vì đã làm cuộc sống anh trở nên tuyệt vời!<br>
+                        <span class="pulse-heart">💕</span> Anh yêu em đến vô cực! <span class="pulse-heart">✨</span>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+            <!-- Birthday Page -->
+            <div class="page-content" id="birthday">
+                <h1 class="title">🎂 Chúc Mừng Sinh Nhật!</h1>
+                <p class="subtitle">Công chúa của anh...</p>
+                
+                <div class="cake-container">
+                    <div class="cake">🎂</div>
+                </div>
+                
+                <div class="message">
+                    Hôm nay là ngày đặc biệt nhất,<br>
+                    Vì em đã đến với thế giới này.<br>
+                    Em là điều kỳ diệu nhất trong cuộc đời anh,<br>
+                    Là ánh sáng dẫn lối, là nguồn cảm hứng vô tận.<br><br>
+                    Chúc em sinh nhật thật nhiều niềm vui,<br>
+                    Sức khỏe, hạnh phúc và thành công rực rỡ! 🌟
+                </div>
+
+                <div class="button-group">
+                    <button class="button" onclick="createFireworks()">🎆 Pháo Hoa</button>
+                    <button class="button" onclick="createHeartExplosion()">💖 Trái Tim</button>
+                    <button class="button" onclick="createConfetti()">🎊 Confetti</button>
+                </div>
+            </div>
+
+            <!-- Love Page -->
+            <div class="page-content" id="love">
+                <h1 class="title">💕 Tình Yêu Của Chúng Ta</h1>
+                <p class="subtitle">Mãi mãi bên nhau...</p>
+                
+                <div class="message">
+                    Tình yêu của chúng ta như những vì sao,<br>
+                    Chiếu sáng cả bầu trời đêm.<br>
+                    Em là tất cả những gì anh cần,<br>
+                    Là lý do anh muốn trở thành phiên bản tốt nhất của mình.<br><br>
+                    Anh hứa sẽ yêu em mãi mãi,<br>
+                    Dù có khó khăn gì, anh vẫn ở bên em! 💞
+                </div>
+
+                <div class="button-group">
+                    <button class="button" onclick="showLoveMessage()">💌 Thư Tình</button>
+                    <button class="button" onclick="createRomanticEffect()">🌹 Lãng Mạn</button>
+                    <button class="button" onclick="showPromise()">💍 Lời Hứa</button>
+                </div>
+
+                <div class="special-message" id="loveMessage" style="display: none;">
+                    <button class="close-btn" onclick="hideLoveMessage()">×</button>
+                    <div class="message-text">
+                        💌 Thư tình dành cho em:<br><br>
+                        Em yêu, mỗi ngày trôi qua, anh càng yêu em nhiều hơn.<br>
+                        Em là ánh sáng trong cuộc đời anh,<br>
+                        Là lý do anh tỉnh dậy mỗi sáng với nụ cười.<br><br>
+                        Anh yêu em không chỉ vì em xinh đẹp,<br>
+                        Mà vì trái tim em tốt bụng và tâm hồn em trong sáng.<br><br>
+                        Mãi yêu em! 💕
+                    </div>
+                </div>
+            </div>
+
+            <!-- Memories Page -->
+            <div class="page-content" id="memories">
+                <h1 class="title">📸 Kỷ Niệm Đẹp</h1>
+                <p class="subtitle">Những khoảnh khắc tuyệt vời...</p>
+                
+                <div class="photo-gallery" style="display: grid;">
+                    <div class="photo-frame">
+                        <div class="photo-placeholder">📷</div>
+                        <p style="color: white;">Kỷ niệm đầu tiên</p>
+                    </div>
+                    <div class="photo-frame">
+                        <div class="photo-placeholder">💑</div>
+                        <p style="color: white;">Tình yêu ngọt ngào</p>
+                    </div>
+                    <div class="photo-frame">
+                        <div class="photo-placeholder">🌹</div>
+                        <p style="color: white;">Hoa hồng cho em</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Music Page -->
+            <div class="page-content" id="music">
+                <h1 class="title">🎵 Giai Điệu Yêu Thích</h1>
+                <p class="subtitle">Âm nhạc dành cho em...</p>
+                
+                <div class="music-player">
+                    <button class="play-button" onclick="togglePlay(this)">▶</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - Happy - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+<script>
+function showPage(page) {
+    document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+    document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+    document.querySelector(`[onclick="showPage('${page}')"]`).classList.add('active');
+    document.getElementById(page).classList.add('active');
+}
+
+function showSpecialMessage() {
+    document.getElementById('specialMessage').style.display = 'block';
+}
+function hideSpecialMessage() {
+    document.getElementById('specialMessage').style.display = 'none';
+}
+
+function showLoveMessage() {
+    document.getElementById('loveMessage').style.display = 'block';
+}
+function hideLoveMessage() {
+    document.getElementById('loveMessage').style.display = 'none';
+}
+
+function createFireworks() {
+    // placeholder for fireworks effect
+}
+function createHeartExplosion() {
+    // placeholder for heart explosion effect
+}
+function createConfetti() {
+    // placeholder for confetti effect
+}
+function createRomanticEffect() {
+    // placeholder for romantic effect
+}
+function showPromise() {
+    alert('Anh hứa sẽ mãi bên em!');
+}
+function togglePlay(btn) {
+    if (btn.textContent === '▶') {
+        btn.textContent = '❚❚';
+    } else {
+        btn.textContent = '▶';
+    }
+}
+</script>
 </body>
 </html>
