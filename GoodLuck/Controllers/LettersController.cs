@@ -6,16 +6,16 @@ namespace GoodLuck.Controllers
 {
     public class LettersController : Controller
     {
-        private readonly DbContext _context;
+        private readonly AppDbContext _context;
 
-        public LettersController(DbContext context)
+        public LettersController(AppDbContext context)
         {
             _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            var letters = await _context.Letter.OrderByDescending(l => l.Created).ToListAsync();
+            var letters = await _context.Letters.OrderByDescending(l => l.Created).ToListAsync();
             return View(letters);
         }
 
