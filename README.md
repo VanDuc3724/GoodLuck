@@ -1,8 +1,8 @@
 # GoodLuck
 
 This project is an ASP.NET Core web application for managing special messages.
-It now includes simple pages to keep letters and anniversaries in a SQLite
-database.
+It now includes simple pages to keep letters and anniversaries in an
+in‑memory database so no files are created on disk.
 
 ## Getting Started
 
@@ -10,4 +10,5 @@ database.
 2. Restore packages with `dotnet restore`.
 3. Run the project with `dotnet run`.
 
-The database file `app.db` will be created automatically on first run.
+Because the database is in memory, no database file will be generated when
+running the application.
