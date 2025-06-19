@@ -12,9 +12,9 @@ namespace GoodLuck
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-                ?? "Data Source=app.db";
+                ?? "Server=localhost;Database=GoodLuckDb;User Id=sa;Password=sa123;TrustServerCertificate=True;";
             builder.Services.AddDbContext<GoodLuck.Models.AppDbContext>(options =>
-                options.UseSqlite(connectionString));
+                options.UseSqlServer(connectionString));
 
             var app = builder.Build();
 
