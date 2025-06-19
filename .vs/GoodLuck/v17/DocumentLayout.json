@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\GoodLuck\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{AA4907D3-3C87-4354-85DB-A4D0CE76D900}|GoodLuck\\GoodLuck.csproj|d:\\goodluck\\goodluck\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AA4907D3-3C87-4354-85DB-A4D0CE76D900}|GoodLuck\\GoodLuck.csproj|solutionrelative:goodluck\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AA4907D3-3C87-4354-85DB-A4D0CE76D900}|GoodLuck\\GoodLuck.csproj|d:\\goodluck\\goodluck\\wwwroot\\css\\stylesheet.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{AA4907D3-3C87-4354-85DB-A4D0CE76D900}|GoodLuck\\GoodLuck.csproj|solutionrelative:goodluck\\wwwroot\\css\\stylesheet.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "StyleSheet.css",
+              "DocumentMoniker": "D:\\GoodLuck\\GoodLuck\\wwwroot\\css\\StyleSheet.css",
+              "RelativeDocumentMoniker": "GoodLuck\\wwwroot\\css\\StyleSheet.css",
+              "ToolTip": "D:\\GoodLuck\\GoodLuck\\wwwroot\\css\\StyleSheet.css",
+              "RelativeToolTip": "GoodLuck\\wwwroot\\css\\StyleSheet.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAMcFAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-06-19T11:35:05.106Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\GoodLuck\\GoodLuck\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "GoodLuck\\Views\\Home\\Index.cshtml",
+              "ToolTip": "D:\\GoodLuck\\GoodLuck\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "GoodLuck\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAgwGIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-19T11:34:37.885Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
