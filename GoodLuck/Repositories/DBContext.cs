@@ -10,5 +10,6 @@ namespace GoodLuck.Repositories
         }
 
         public DbSet<Anniversary> Anniversaries => Set<Anniversary>();
+        public DbSet<Photo> Photos => Set<Photo>();
     }
 }

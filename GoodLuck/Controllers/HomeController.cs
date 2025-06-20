@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using GoodLuck.Models;
 using GoodLuck.Repositories;
-using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +12,6 @@ namespace GoodLuck.Controllers
         private readonly DBContext _context;
         private readonly IWebHostEnvironment _env;
         private const string UploadFolder = "uploads";
-        private const string DataFile = "photos.json";
 
         public HomeController(ILogger<HomeController> logger, DBContext context, IWebHostEnvironment env)
         {
@@ -22,29 +20,19 @@ namespace GoodLuck.Controllers
             _env = env;
         }
 
-        private List<Photo> LoadPhotos()
+        private async Task<List<Photo>> LoadPhotos()
         {
-            var dir = Path.Combine(_env.WebRootPath, UploadFolder);
-            var file = Path.Combine(dir, DataFile);
-            if (!System.IO.File.Exists(file)) return new List<Photo>();
-            try
-            {
-                var json = System.IO.File.ReadAllText(file);
-                return JsonSerializer.Deserialize<List<Photo>>(json) ?? new List<Photo>();
-            }
-            catch
-            {
-                return new List<Photo>();
-            }
+            return await _context.Photos
+                .OrderBy(p => p.Uploaded)
+                .ToListAsync();
         }
 
-        private void SavePhotos(List<Photo> photos)
+        private async Task SavePhotos(List<Photo> photos)
         {
-            var dir = Path.Combine(_env.WebRootPath, UploadFolder);
-            if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-            var file = Path.Combine(dir, DataFile);
-            var json = JsonSerializer.Serialize(photos);
-            System.IO.File.WriteAllText(file, json);
+            _context.Photos.RemoveRange(_context.Photos);
+            await _context.SaveChangesAsync();
+            _context.Photos.AddRange(photos);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IActionResult> Index()
@@ -62,7 +50,7 @@ namespace GoodLuck.Controllers
             }
 
             ViewBag.NextAnniversary = upcoming;
-            var allPhotos = LoadPhotos();
+            var allPhotos = await LoadPhotos();
             ViewBag.MainPhotos = allPhotos.TakeLast(2).ToList();
             ViewBag.Photos = allPhotos;
 
@@ -79,7 +67,7 @@ namespace GoodLuck.Controllers
 
         public async Task<IActionResult> Edit()
         {
-            ViewBag.Photos = LoadPhotos();
+            ViewBag.Photos = await LoadPhotos();
             var first = await _context.Anniversaries.OrderBy(a => a.Date).FirstOrDefaultAsync();
             ViewBag.StartDate = first?.Date.ToString("yyyy-MM-dd") ?? DateTime.Today.ToString("yyyy-MM-dd");
             return View();
@@ -89,7 +77,7 @@ namespace GoodLuck.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveSettings(List<IFormFile> files, List<string> titles, DateTime startDate)
         {
-            var existing = LoadPhotos();
+            var existing = await LoadPhotos();
             var dir = Path.Combine(_env.WebRootPath, UploadFolder);
 
             if (Directory.Exists(dir))
@@ -123,7 +111,7 @@ namespace GoodLuck.Controllers
                 }
             }
 
-            SavePhotos(photos);
+            await SavePhotos(photos);
 
             var first = await _context.Anniversaries.OrderBy(a => a.Date).FirstOrDefaultAsync();
             if (first != null)
@@ -172,6 +160,20 @@ namespace GoodLuck.Controllers
 
             ViewBag.DisplayDate = displayDate;
             return View(events);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddHomePhoto(string fileName)
+        {
+            var photo = new Photo
+            {
+                FileName = fileName,
+                Title = "trang chủ",
+                Uploaded = DateTime.UtcNow
+            };
+            _context.Photos.Add(photo);
+            await _context.SaveChangesAsync();
+            return Ok();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
