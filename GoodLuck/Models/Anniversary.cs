@@ -12,5 +12,8 @@ namespace GoodLuck.Models
         [Required]
 
         public DateTime Date { get; set; }
+
+        // Optional message to display when the event starts
+        public string? Message { get; set; }
     }
 }
