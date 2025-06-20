@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using GoodLuck.Models;
 using GoodLuck.Repositories;
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,11 +11,40 @@ namespace GoodLuck.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly DBContext _context;
+        private readonly IWebHostEnvironment _env;
+        private const string UploadFolder = "uploads";
+        private const string DataFile = "photos.json";
 
-        public HomeController(ILogger<HomeController> logger, DBContext context)
+        public HomeController(ILogger<HomeController> logger, DBContext context, IWebHostEnvironment env)
         {
             _logger = logger;
             _context = context;
+            _env = env;
+        }
+
+        private List<Photo> LoadPhotos()
+        {
+            var dir = Path.Combine(_env.WebRootPath, UploadFolder);
+            var file = Path.Combine(dir, DataFile);
+            if (!System.IO.File.Exists(file)) return new List<Photo>();
+            try
+            {
+                var json = System.IO.File.ReadAllText(file);
+                return JsonSerializer.Deserialize<List<Photo>>(json) ?? new List<Photo>();
+            }
+            catch
+            {
+                return new List<Photo>();
+            }
+        }
+
+        private void SavePhotos(List<Photo> photos)
+        {
+            var dir = Path.Combine(_env.WebRootPath, UploadFolder);
+            if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+            var file = Path.Combine(dir, DataFile);
+            var json = JsonSerializer.Serialize(photos);
+            System.IO.File.WriteAllText(file, json);
         }
 
         public IActionResult Index()
@@ -34,7 +64,36 @@ namespace GoodLuck.Controllers
             }
 
             ViewBag.NextAnniversary = upcoming;
+            ViewBag.Photos = LoadPhotos().TakeLast(2).ToList();
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UploadPhotos(List<IFormFile> files, List<string> titles)
+        {
+            var photos = LoadPhotos();
+            var dir = Path.Combine(_env.WebRootPath, UploadFolder);
+            if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+
+            for (int i = 0; i < files.Count; i++)
+            {
+                var file = files[i];
+                if (file != null && file.Length > 0)
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + Path.GetExtension(file.FileName);
+                    var path = Path.Combine(dir, fileName);
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+                    var title = titles.Count > i ? titles[i] : Path.GetFileNameWithoutExtension(file.FileName);
+                    photos.Add(new Photo { FileName = fileName, Title = title, Uploaded = DateTime.UtcNow });
+                }
+            }
+
+            SavePhotos(photos);
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Privacy()
