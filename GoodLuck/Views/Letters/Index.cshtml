@@ -9,7 +9,7 @@
         <tr>
             <th>Title</th>
             <th>Date</th>
-            <th></th>
+            <th>Anniversary</th>
         </tr>
     </thead>
     <tbody>
@@ -18,6 +18,7 @@
         <tr>
             <td>@item.Title</td>
             <td>@item.Created.ToString("yyyy-MM-dd")</td>
+            <td>@item.Anniversary?.Title</td>
         </tr>
 }
     </tbody>
