@@ -46,6 +46,10 @@ namespace GoodLuck.Controllers
 
             if (ModelState.IsValid)
             {
+                if (!string.IsNullOrWhiteSpace(anniversary.LetterTitle) && !string.IsNullOrWhiteSpace(anniversary.LetterContent) && !anniversary.LetterCreated.HasValue)
+                {
+                    anniversary.LetterCreated = DateTime.UtcNow;
+                }
                 _context.Update(anniversary);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -94,26 +98,16 @@ namespace GoodLuck.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Anniversary anniversary, string? letterTitle, string? letterContent)
+        public async Task<IActionResult> Create(Anniversary anniversary)
         {
             if (ModelState.IsValid)
             {
+                if (!string.IsNullOrWhiteSpace(anniversary.LetterTitle) && !string.IsNullOrWhiteSpace(anniversary.LetterContent))
+                {
+                    anniversary.LetterCreated = DateTime.UtcNow;
+                }
                 _context.Add(anniversary);
                 await _context.SaveChangesAsync();
-
-                if (!string.IsNullOrWhiteSpace(letterTitle) && !string.IsNullOrWhiteSpace(letterContent))
-                {
-                    var letter = new Letter
-                    {
-                        Title = letterTitle,
-                        Content = letterContent,
-                        Created = DateTime.UtcNow,
-                        AnniversaryId = anniversary.Id
-                    };
-
-                    _context.Add(letter);
-                    await _context.SaveChangesAsync();
-                }
 
                 return RedirectToAction(nameof(Index));
             }

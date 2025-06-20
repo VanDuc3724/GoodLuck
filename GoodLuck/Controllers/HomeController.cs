@@ -55,12 +55,10 @@ namespace GoodLuck.Controllers
                                    .OrderBy(a => a.Date)
                                    .FirstOrDefaultAsync();
 
-            if (upcoming != null)
+
+            if (upcoming != null && !string.IsNullOrWhiteSpace(upcoming.LetterContent))
             {
-                var letter = await _context.Letters
-                                   .Include(l => l.Anniversary)
-                                   .FirstOrDefaultAsync(l => l.AnniversaryId == upcoming.Id);
-                ViewBag.NextLetter = letter;
+                ViewBag.EventLetter = upcoming.LetterContent;
             }
 
             ViewBag.NextAnniversary = upcoming;
