@@ -65,6 +65,15 @@ namespace GoodLuck.Controllers
 
             ViewBag.NextAnniversary = upcoming;
             ViewBag.Photos = LoadPhotos().TakeLast(2).ToList();
+
+            var first = _context.Anniversaries.OrderBy(a => a.Date).FirstOrDefault();
+            int daysTogether = 0;
+            if (first != null)
+            {
+                daysTogether = (int)(DateTime.Today - first.Date.Date).TotalDays;
+                if (daysTogether < 0) daysTogether = 0;
+            }
+            ViewBag.DaysTogether = daysTogether;
             return View();
         }
 

@@ -36,6 +36,11 @@
             <div class="page-content active" id="home">
                 <h1 class="title">💕 Cặp Đôi Đặc Biệt</h1>
 
+                <div class="love-frame">
+                    <span class="days-count">@ViewBag.DaysTogether</span>
+                    <span class="heart-icon pulse-heart">❤️</span>
+                </div>
+
                 <div class="home-photos">
                     <div class="photos-grid">
                         @if (ViewBag.Photos != null)
@@ -43,7 +48,9 @@
                             foreach (GoodLuck.Models.Photo p in ViewBag.Photos)
                             {
                                 <div class="photo-item" style="text-align:center;margin:10px;">
-                                    <img src="~/uploads/@p.FileName" alt="@p.Title" style="max-width:100%;height:auto;" />
+                                    <div class="photo-frame">
+                                        <img src="~/uploads/@p.FileName" alt="@p.Title" style="max-width:100%;height:auto;" />
+                                    </div>
                                     <div style="color:white;">@p.Title</div>
                                 </div>
                             }
