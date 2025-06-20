@@ -89,30 +89,26 @@ namespace GoodLuck.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SetStartDate(DateTime startDate)
+        public async Task<IActionResult> SaveSettings(List<IFormFile> files, List<string> titles, DateTime startDate)
         {
-            var first = await _context.Anniversaries.OrderBy(a => a.Date).FirstOrDefaultAsync();
-            if (first != null)
-            {
-                first.Date = startDate.Date;
-                _context.Update(first);
-            }
-            else
-            {
-                _context.Anniversaries.Add(new Anniversary { Title = "Ngày Bắt Đầu", Date = startDate.Date });
-            }
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Edit));
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UploadPhotos(List<IFormFile> files, List<string> titles)
-        {
-            var photos = LoadPhotos();
+            var existing = LoadPhotos();
             var dir = Path.Combine(_env.WebRootPath, UploadFolder);
+
+            if (Directory.Exists(dir))
+            {
+                foreach (var p in existing)
+                {
+                    var path = Path.Combine(dir, p.FileName);
+                    if (System.IO.File.Exists(path))
+                    {
+                        System.IO.File.Delete(path);
+                    }
+                }
+            }
+
             if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
 
+            var photos = new List<Photo>();
             for (int i = 0; i < files.Count; i++)
             {
                 var file = files[i];
@@ -130,6 +126,19 @@ namespace GoodLuck.Controllers
             }
 
             SavePhotos(photos);
+
+            var first = await _context.Anniversaries.OrderBy(a => a.Date).FirstOrDefaultAsync();
+            if (first != null)
+            {
+                first.Date = startDate.Date;
+                _context.Update(first);
+            }
+            else
+            {
+                _context.Anniversaries.Add(new Anniversary { Title = "Ngày Bắt Đầu", Date = startDate.Date });
+            }
+            await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Edit));
         }
 

@@ -20,7 +20,7 @@
     </div>
 }
 
-<form asp-action="UploadPhotos" method="post" enctype="multipart/form-data">
+<form asp-action="SaveSettings" method="post" enctype="multipart/form-data">
     <div class="mb-3">
         <input type="file" name="files" accept="image/*" class="form-control" />
         <input type="text" name="titles" placeholder="Nhập tên" class="form-control mt-2" />
@@ -29,13 +29,9 @@
         <input type="file" name="files" accept="image/*" class="form-control" />
         <input type="text" name="titles" placeholder="Nhập tên" class="form-control mt-2" />
     </div>
-    <button type="submit" class="btn btn-primary">Tải lên</button>
-</form>
-
-<form asp-action="SetStartDate" method="post" class="mt-4">
-    <div class="mb-3">
+    <div class="mb-3 mt-4">
         <label for="startDate" class="form-label">Ngày bắt đầu</label>
         <input type="date" name="startDate" id="startDate" class="form-control" value="@ViewBag.StartDate" />
     </div>
-    <button type="submit" class="btn btn-primary">Lưu ngày bắt đầu</button>
+    <button type="submit" class="btn btn-primary">Lưu</button>
 </form>
