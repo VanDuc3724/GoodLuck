@@ -42,11 +42,32 @@ namespace GoodLuck.Controllers
             return View();
         }
 
-        public IActionResult Calendar()
+        public IActionResult Calendar(int? month, int? year)
         {
+            DateTime displayDate;
+            if (month.HasValue && year.HasValue)
+            {
+                displayDate = new DateTime(year.Value, month.Value, 1);
+            }
+            else if (month.HasValue)
+            {
+                displayDate = new DateTime(DateTime.Today.Year, month.Value, 1);
+            }
+            else if (year.HasValue)
+            {
+                displayDate = new DateTime(year.Value, DateTime.Today.Month, 1);
+            }
+            else
+            {
+                displayDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+            }
+
             var events = _context.Anniversaries
+                                  .Where(a => a.Date.Year == displayDate.Year && a.Date.Month == displayDate.Month)
                                   .OrderBy(a => a.Date)
                                   .ToList();
+
+            ViewBag.DisplayDate = displayDate;
             return View(events);
         }
 
