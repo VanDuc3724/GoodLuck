@@ -62,11 +62,18 @@
             <div class="page-content" id="birthday">
                 <h1 class="title">🎂 Chúc Mừng Sinh Nhật!</h1>
                 <p class="subtitle">Công chúa của anh...</p>
-                
+
                 <div class="cake-container">
                     <div class="cake">🎂</div>
                 </div>
-                
+
+                @if (ViewBag.NextAnniversary != null)
+                {
+                    <div class="countdown">
+                        Còn lại <span id="countdown"></span> nữa đến sự kiện "@ViewBag.NextAnniversary.Title"
+                    </div>
+                }
+
                 <div class="message">
                     Hôm nay là ngày đặc biệt nhất,<br>
                     Vì em đã đến với thế giới này.<br>
@@ -193,6 +200,38 @@ function togglePlay(btn) {
     } else {
         btn.textContent = '▶';
     }
+}
+
+function startCountdown(dateString) {
+    const target = new Date(dateString);
+    const span = document.getElementById('countdown');
+    if (!span) return;
+
+    function update() {
+        const now = new Date();
+        let diff = target - now;
+        if (diff < 0) diff = 0;
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        diff -= days * 1000 * 60 * 60 * 24;
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        diff -= hours * 1000 * 60 * 60;
+        const minutes = Math.floor(diff / (1000 * 60));
+        diff -= minutes * 1000 * 60;
+        const seconds = Math.floor(diff / 1000);
+
+        span.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    update();
+    setInterval(update, 1000);
+}
+
+@if (ViewBag.NextAnniversary != null)
+{
+    <text>
+        startCountdown('@(((DateTime)ViewBag.NextAnniversary.Date).ToString("o"))');
+    </text>
 }
 </script>
 </body>
