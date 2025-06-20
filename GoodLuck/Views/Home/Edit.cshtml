@@ -31,3 +31,11 @@
     </div>
     <button type="submit" class="btn btn-primary">Tải lên</button>
 </form>
+
+<form asp-action="SetStartDate" method="post" class="mt-4">
+    <div class="mb-3">
+        <label for="startDate" class="form-label">Ngày bắt đầu</label>
+        <input type="date" name="startDate" id="startDate" class="form-control" value="@ViewBag.StartDate" />
+    </div>
+    <button type="submit" class="btn btn-primary">Lưu ngày bắt đầu</button>
+</form>

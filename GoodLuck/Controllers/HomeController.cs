@@ -80,7 +80,27 @@ namespace GoodLuck.Controllers
         public IActionResult Edit()
         {
             ViewBag.Photos = LoadPhotos();
+            var first = _context.Anniversaries.OrderBy(a => a.Date).FirstOrDefault();
+            ViewBag.StartDate = first?.Date.ToString("yyyy-MM-dd") ?? DateTime.Today.ToString("yyyy-MM-dd");
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SetStartDate(DateTime startDate)
+        {
+            var first = await _context.Anniversaries.OrderBy(a => a.Date).FirstOrDefaultAsync();
+            if (first != null)
+            {
+                first.Date = startDate.Date;
+                _context.Update(first);
+            }
+            else
+            {
+                _context.Anniversaries.Add(new Anniversary { Title = "Ngày Bắt Đầu", Date = startDate.Date });
+            }
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Edit));
         }
 
         [HttpPost]
