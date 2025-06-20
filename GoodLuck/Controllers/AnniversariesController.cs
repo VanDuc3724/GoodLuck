@@ -85,7 +85,11 @@ namespace GoodLuck.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            // Pass a new instance so default values like the Icon emoji
+            // are populated in the form. Without this the input fields
+            // would be empty and validation for the Icon property would fail
+            // even though a default value is specified in the model.
+            return View(new Anniversary());
         }
 
         [HttpPost]
