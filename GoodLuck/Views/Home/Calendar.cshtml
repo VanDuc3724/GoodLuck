@@ -1,4 +1,14 @@
-﻿<!DOCTYPE html>
+@model IEnumerable<GoodLuck.Models.Anniversary>
+@{
+    Layout = null;
+    var displayDate = ViewBag.DisplayDate as DateTime? ?? DateTime.Today;
+    var prev = displayDate.AddMonths(-1);
+    var next = displayDate.AddMonths(1);
+    var firstOfMonth = new DateTime(displayDate.Year, displayDate.Month, 1);
+    var startDate = firstOfMonth.AddDays(-(int)firstOfMonth.DayOfWeek);
+    var totalCells = 42; // 6 weeks
+}
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +16,6 @@
     <title>💕 Lịch Kỷ Niệm - My Princess</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/Calender.css" />
-
 </head>
 <body>
     <!-- Floating 3D Hearts -->
@@ -18,16 +27,16 @@
     <div class="heart-3d" style="top: 60%; right: 5%; animation-delay: 5s;">💞</div>
 
     <!-- Back Button -->
-    <a href="#" class="back-btn">
+    <a asp-action="Index" asp-controller="Home" class="back-btn">
         ← Về Trang Chủ
     </a>
 
     <div class="container">
         <div class="calendar-book">
             <div class="calendar-nav">
-                <a href="#" class="nav-btn">‹ Tháng Trước</a>
-                <span class="calendar-title">Tháng 6, 2025</span>
-                <a href="#" class="nav-btn">Tháng Sau ›</a>
+                <a asp-action="Calendar" asp-route-month="@prev.Month" asp-route-year="@prev.Year" class="nav-btn">‹ Tháng Trước</a>
+                <span class="calendar-title">Tháng @displayDate.Month, @displayDate.Year</span>
+                <a asp-action="Calendar" asp-route-month="@next.Month" asp-route-year="@next.Year" class="nav-btn">Tháng Sau ›</a>
             </div>
 
             <div class="calendar">
@@ -39,117 +48,22 @@
                 <div class="day-header">T6</div>
                 <div class="day-header">T7</div>
 
-                <!-- Sample calendar days -->
-                <div class="day other-month"></div>
-                <div class="day other-month"></div>
-                <div class="day other-month"></div>
-                <div class="day other-month"></div>
-                <div class="day other-month"></div>
-                <div class="day other-month"></div>
-                <div class="day">
-                    <div class="date-num">1</div>
-                </div>
+@for (int i = 0; i < totalCells; i++)
+{
+    var date = startDate.AddDays(i);
+    var ann = Model.FirstOrDefault(a => a.Date.Date == date.Date);
+    var classes = "day";
+    if (date.Month != displayDate.Month) classes += " other-month";
+    if (ann != null) classes += " event";
 
-                <div class="day">
-                    <div class="date-num">2</div>
-                </div>
-                <div class="day">
-                    <div class="date-num">3</div>
-                </div>
-                <div class="day">
-                    <div class="date-num">4</div>
-                </div>
-                <div class="day">
-                    <div class="date-num">5</div>
-                </div>
-                <div class="day">
-                    <div class="date-num">6</div>
-                </div>
-                <div class="day">
-                    <div class="date-num">7</div>
-                </div>
-                <div class="day">
-                    <div class="date-num">8</div>
-                </div>
-
-                <div class="day">
-                    <div class="date-num">9</div>
-                </div>
-                <div class="day">
-                    <div class="date-num">10</div>
-                </div>
-                <div class="day">
-                    <div class="date-num">11</div>
-                </div>
-                <div class="day">
-                    <div class="date-num">12</div>
-                </div>
-                <div class="day">
-                    <div class="date-num">13</div>
-                </div>
-                <div class="day event">
-                    <div class="date-num">14</div>
-                    <div class="event-title">💕 Ngày Yêu</div>
-                </div>
-                <div class="day">
-                    <div class="date-num">15</div>
-                </div>
-
-                <div class="day">
-                    <div class="date-num">16</div>
-                </div>
-                <div class="day">
-                    <div class="date-num">17</div>
-                </div>
-                <div class="day">
-                    <div class="date-num">18</div>
-                </div>
-                <div class="day">
-                    <div class="date-num">19</div>
-                </div>
-                <div class="day event">
-                    <div class="date-num">20</div>
-                    <div class="event-title">🎂 Sinh Nhật Em</div>
-                </div>
-                <div class="day">
-                    <div class="date-num">21</div>
-                </div>
-                <div class="day">
-                    <div class="date-num">22</div>
-                </div>
-
-                <div class="day">
-                    <div class="date-num">23</div>
-                </div>
-                <div class="day">
-                    <div class="date-num">24</div>
-                </div>
-                <div class="day event">
-                    <div class="date-num">25</div>
-                    <div class="event-title">💑 Kỷ Niệm 1 Năm</div>
-                </div>
-                <div class="day">
-                    <div class="date-num">26</div>
-                </div>
-                <div class="day">
-                    <div class="date-num">27</div>
-                </div>
-                <div class="day">
-                    <div class="date-num">28</div>
-                </div>
-                <div class="day">
-                    <div class="date-num">29</div>
-                </div>
-
-                <div class="day">
-                    <div class="date-num">30</div>
-                </div>
-                <div class="day other-month"></div>
-                <div class="day other-month"></div>
-                <div class="day other-month"></div>
-                <div class="day other-month"></div>
-                <div class="day other-month"></div>
-                <div class="day other-month"></div>
+<div class="@classes">
+    <div class="date-num">@date.Day</div>
+    @if (ann != null)
+    {
+        <div class="event-title">@ann.Title</div>
+    }
+</div>
+}
             </div>
         </div>
     </div>
