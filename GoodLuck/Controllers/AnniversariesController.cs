@@ -1,14 +1,15 @@
 using GoodLuck.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using GoodLuck.Repositories;
 
 namespace GoodLuck.Controllers
 {
     public class AnniversariesController : Controller
     {
-        private readonly DbContext _context;
+        private readonly DBContext _context;
 
-        public AnniversariesController(DbContext context)
+        public AnniversariesController(DBContext context)
         {
             _context = context;
         }

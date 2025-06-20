@@ -1,14 +1,15 @@
 using GoodLuck.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using GoodLuck.Repositories;
 
 namespace GoodLuck.Controllers
 {
     public class LettersController : Controller
     {
-        private readonly DbContext _context;
+        private readonly DBContext _context;
 
-        public LettersController(DbContext context)
+        public LettersController(DBContext context)
         {
             _context = context;
         }
