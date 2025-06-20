@@ -90,12 +90,27 @@ namespace GoodLuck.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Anniversary anniversary)
+        public async Task<IActionResult> Create(Anniversary anniversary, string? letterTitle, string? letterContent)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(anniversary);
                 await _context.SaveChangesAsync();
+
+                if (!string.IsNullOrWhiteSpace(letterTitle) && !string.IsNullOrWhiteSpace(letterContent))
+                {
+                    var letter = new Letter
+                    {
+                        Title = letterTitle,
+                        Content = letterContent,
+                        Created = DateTime.UtcNow,
+                        AnniversaryId = anniversary.Id
+                    };
+
+                    _context.Add(letter);
+                    await _context.SaveChangesAsync();
+                }
+
                 return RedirectToAction(nameof(Index));
             }
             return View(anniversary);

@@ -24,11 +24,6 @@ namespace GoodLuck.Controllers
             return View(letters);
         }
 
-        public IActionResult Create()
-        {
-            ViewBag.Anniversaries = new SelectList(_context.Anniversaries.OrderBy(a => a.Date), "Id", "Title");
-            return View();
-        }
 
         public async Task<IActionResult> Edit(int? id)
         {
@@ -111,25 +106,5 @@ namespace GoodLuck.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Letter letter)
-        {
-            // Ensure the selected anniversary exists before saving
-            if (!_context.Anniversaries.Any(a => a.Id == letter.AnniversaryId))
-            {
-                ModelState.AddModelError("AnniversaryId", "Anniversary does not exist.");
-            }
-
-            if (ModelState.IsValid)
-            {
-                letter.Created = DateTime.UtcNow;
-                _context.Add(letter);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewBag.Anniversaries = new SelectList(_context.Anniversaries.OrderBy(a => a.Date), "Id", "Title", letter.AnniversaryId);
-            return View(letter);
-        }
     }
 }
