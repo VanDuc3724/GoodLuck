@@ -46,10 +46,6 @@ namespace GoodLuck.Controllers
 
             if (ModelState.IsValid)
             {
-                if (!string.IsNullOrWhiteSpace(anniversary.LetterTitle) && !string.IsNullOrWhiteSpace(anniversary.LetterContent) && !anniversary.LetterCreated.HasValue)
-                {
-                    anniversary.LetterCreated = DateTime.UtcNow;
-                }
                 _context.Update(anniversary);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -102,10 +98,6 @@ namespace GoodLuck.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!string.IsNullOrWhiteSpace(anniversary.LetterTitle) && !string.IsNullOrWhiteSpace(anniversary.LetterContent))
-                {
-                    anniversary.LetterCreated = DateTime.UtcNow;
-                }
                 _context.Add(anniversary);
                 await _context.SaveChangesAsync();
 
