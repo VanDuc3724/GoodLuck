@@ -56,6 +56,33 @@
                         <span class="pulse-heart">💕</span> Anh yêu em đến vô cực! <span class="pulse-heart">✨</span>
                     </div>
                 </div>
+
+                <div class="home-photos">
+                    <div class="photos-grid">
+                        @if (ViewBag.Photos != null)
+                        {
+                            foreach (GoodLuck.Models.Photo p in ViewBag.Photos)
+                            {
+                                <div class="photo-item" style="text-align:center;margin:10px;">
+                                    <img src="~/uploads/@p.FileName" alt="@p.Title" style="max-width:100%;height:auto;" />
+                                    <div style="color:white;">@p.Title</div>
+                                </div>
+                            }
+                        }
+                    </div>
+
+                    <form asp-action="UploadPhotos" method="post" enctype="multipart/form-data" style="margin-top:10px;">
+                        <div>
+                            <input type="file" name="files" accept="image/*" />
+                            <input type="text" name="titles" placeholder="Tên ảnh" />
+                        </div>
+                        <div>
+                            <input type="file" name="files" accept="image/*" />
+                            <input type="text" name="titles" placeholder="Tên ảnh" />
+                        </div>
+                        <button type="submit">Tải lên</button>
+                    </form>
+                </div>
             </div>
 
             <!-- Birthday Page -->

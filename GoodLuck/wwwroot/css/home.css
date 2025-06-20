@@ -606,3 +606,31 @@ body {
         transform: scale(0.3);
     }
 }
+
+/* Home uploaded photos */
+.home-photos .photos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.home-photos input[type="file"] {
+    margin-bottom: 5px;
+    color: white;
+}
+
+.home-photos input[type="text"] {
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 100%;
+}
+
+.home-photos button {
+    padding: 8px 16px;
+    border: none;
+    background: #1b6ec2;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
