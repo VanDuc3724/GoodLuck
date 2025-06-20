@@ -646,8 +646,8 @@ body {
 }
 
 .love-frame .photo-frame {
-    width: 150px;
-    height: 150px;
+    width: 300px;
+    height: 400px;
     display: flex;
     align-items: center;
     justify-content: center;
