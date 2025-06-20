@@ -1,0 +1,21 @@
+@model IEnumerable<GoodLuck.Models.Anniversary>
+<h1>Lịch Sự Kiện</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ngày</th>
+            <th>Tiêu đề</th>
+            <th>Thông điệp</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+        <tr>
+            <td>@item.Date.ToString("yyyy-MM-dd")</td>
+            <td>@item.Title</td>
+            <td>@item.Message</td>
+        </tr>
+}
+    </tbody>
+</table>
