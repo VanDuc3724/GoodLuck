@@ -50,21 +50,10 @@
                         }
                     </div>
 
-                    <form asp-action="UploadPhotos" method="post" enctype="multipart/form-data" style="margin-top:10px;">
-                        <div>
-                            <input type="file" name="files" accept="image/*" />
-                            <input type="text" name="titles" placeholder="Tên ảnh" />
-                        </div>
-                        <div>
-                            <input type="file" name="files" accept="image/*" />
-                            <input type="text" name="titles" placeholder="Tên ảnh" />
-                        </div>
-                        <button type="submit">Tải lên</button>
-                    </form>
                 </div>
-                <button class="main-button" onclick="showSpecialMessage()">
+                <a asp-action="Edit" class="main-button">
                     💖 Chỉnh Sửa
-                </button>
+                </a>
             </div>
             
 
