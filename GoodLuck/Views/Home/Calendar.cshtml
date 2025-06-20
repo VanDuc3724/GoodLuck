@@ -1,17 +1,23 @@
 @model IEnumerable<GoodLuck.Models.Anniversary>
 
 @{
-    var now = DateTime.Today;
+    var now = (DateTime)ViewBag.DisplayDate;
     var firstOfMonth = new DateTime(now.Year, now.Month, 1);
     var daysInMonth = DateTime.DaysInMonth(now.Year, now.Month);
     var startOffset = (int)firstOfMonth.DayOfWeek;
     var eventsByDay = Model
         .GroupBy(a => a.Date.Date)
         .ToDictionary(g => g.Key, g => g.ToList());
+    var prev = now.AddMonths(-1);
+    var next = now.AddMonths(1);
 }
 
 <div class="calendar-book">
-    <h2 class="text-center">@now.ToString("MMMM yyyy")</h2>
+    <div class="calendar-nav text-center mb-3">
+        <a asp-action="Calendar" asp-route-month="@prev.Month" asp-route-year="@prev.Year" class="btn btn-sm btn-secondary">&laquo;</a>
+        <span class="mx-2 fw-bold">@now.ToString("MMMM yyyy")</span>
+        <a asp-action="Calendar" asp-route-month="@next.Month" asp-route-year="@next.Year" class="btn btn-sm btn-secondary">&raquo;</a>
+    </div>
     <div class="calendar">
         <div class="day-header">CN</div>
         <div class="day-header">T2</div>
