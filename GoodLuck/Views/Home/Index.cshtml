@@ -37,8 +37,18 @@
                 <h1 class="title">💕 Cặp Đôi Đặc Biệt</h1>
 
                 <div class="love-frame">
+                    @if (ViewBag.Photos != null && ((List<GoodLuck.Models.Photo>)ViewBag.Photos).Count >= 2)
+                    {
+                        var photos = (List<GoodLuck.Models.Photo>)ViewBag.Photos;
+                        <img class="love-photo" src="~/uploads/@photos[0].FileName" alt="@photos[0].Title" />
+                        <span class="heart-icon pulse-heart">❤️</span>
+                        <img class="love-photo" src="~/uploads/@photos[1].FileName" alt="@photos[1].Title" />
+                    }
+                    else
+                    {
+                        <span class="heart-icon pulse-heart">❤️</span>
+                    }
                     <span class="days-count">@ViewBag.DaysTogether</span>
-                    <span class="heart-icon pulse-heart">❤️</span>
                 </div>
 
                 <div class="home-photos">
