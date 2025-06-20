@@ -25,7 +25,7 @@
         <!-- Navigation -->
         <div class="nav-tabs">
             <button class="nav-tab active" onclick="showPage('home')">🏠 Trang Chủ</button>
-            <button class="nav-tab" onclick="showPage('birthday')">🎂 Sự Kiện</button>
+            <button class="nav-tab" onclick="showPage('birthday')">🎉 Sự Kiện</button>
             <button class="nav-tab" onclick="showPage('love')">💕 Tình Yêu</button>
             <button class="nav-tab" onclick="showPage('memories')">📸 Kỷ Niệm</button>
             <button class="nav-tab" onclick="showPage('music')">🎵 Âm Nhạc</button>
@@ -60,7 +60,7 @@
 
             <!-- Birthday Page -->
             <div class="page-content" id="birthday">
-                <h1 class="title">🎂 Chúc Mừng Sinh Nhật!</h1>
+                <h1 class="title">🎉 Chúc Mừng Sinh Nhật!</h1>
                 <p class="subtitle">Công chúa của anh...</p>
 
                 <div class="cake-container">
@@ -218,6 +218,7 @@ function togglePlay(btn) {
 function startCountdown(dateString) {
     const target = new Date(dateString);
     const span = document.getElementById('countdown');
+    const countdownDiv = span ? span.parentElement : null;
     const letterDiv = document.getElementById('eventLetter');
     if (!span) return;
 
@@ -232,6 +233,9 @@ function startCountdown(dateString) {
         }
         if (diff <= 0) {
             diff = 0;
+            if (countdownDiv) countdownDiv.style.display = 'none';
+        } else if (countdownDiv) {
+            countdownDiv.style.display = 'block';
         }
 
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
