@@ -655,11 +655,18 @@ body {
     font-size: 4rem;
 }
 
-.love-frame .days-count {
+.heart-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.heart-wrapper .days-count {
     position: absolute;
-    top: 20px;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     color: white;
     font-size: 2rem;
     font-weight: bold;

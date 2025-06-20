@@ -40,15 +40,24 @@
                     @if (ViewBag.Photos != null && ((List<GoodLuck.Models.Photo>)ViewBag.Photos).Count >= 2)
                     {
                         var photos = (List<GoodLuck.Models.Photo>)ViewBag.Photos;
-                        <img class="love-photo" src="~/uploads/@photos[0].FileName" alt="@photos[0].Title" />
-                        <span class="heart-icon pulse-heart">❤️</span>
-                        <img class="love-photo" src="~/uploads/@photos[1].FileName" alt="@photos[1].Title" />
+                        <div class="photo-frame">
+                            <img class="love-photo" src="~/uploads/@photos[0].FileName" alt="@photos[0].Title" />
+                        </div>
+                        <div class="heart-wrapper">
+                            <span class="heart-icon pulse-heart">❤️</span>
+                            <span class="days-count">@ViewBag.DaysTogether</span>
+                        </div>
+                        <div class="photo-frame">
+                            <img class="love-photo" src="~/uploads/@photos[1].FileName" alt="@photos[1].Title" />
+                        </div>
                     }
                     else
                     {
-                        <span class="heart-icon pulse-heart">❤️</span>
+                        <div class="heart-wrapper">
+                            <span class="heart-icon pulse-heart">❤️</span>
+                            <span class="days-count">@ViewBag.DaysTogether</span>
+                        </div>
                     }
-                    <span class="days-count">@ViewBag.DaysTogether</span>
                 </div>
 
                 <div class="home-photos">
