@@ -60,11 +60,13 @@
 
             <!-- Birthday Page -->
             <div class="page-content" id="birthday">
-                <h1 class="title">🎉 Chúc Mừng Sinh Nhật!</h1>
-                <p class="subtitle">Công chúa của anh...</p>
+                <div id="birthdayMessage" style="display: none;">
+                    <h1 class="title">🎉 @ViewBag.NextAnniversary?.Title</h1>
+                    <p class="subtitle">@ViewBag.NextAnniversary?.Message ?? "Công chúa của anh..."</p>
 
-                <div class="cake-container">
-                    <div class="cake">🎂</div>
+                    <div class="cake-container">
+                        <div class="cake">🎂</div>
+                    </div>
                 </div>
 
                 @if (ViewBag.NextAnniversary != null)
@@ -220,6 +222,7 @@ function startCountdown(dateString) {
     const span = document.getElementById('countdown');
     const countdownDiv = span ? span.parentElement : null;
     const letterDiv = document.getElementById('eventLetter');
+    const messageDiv = document.getElementById('birthdayMessage');
     if (!span) return;
 
     function update() {
@@ -228,8 +231,10 @@ function startCountdown(dateString) {
         const endOfDay = new Date(target.getTime() + 24 * 60 * 60 * 1000);
         if (now >= target && now < endOfDay) {
             if (letterDiv) letterDiv.style.display = 'block';
+            if (messageDiv) messageDiv.style.display = 'block';
         } else {
             if (letterDiv) letterDiv.style.display = 'none';
+            if (messageDiv) messageDiv.style.display = 'none';
         }
         if (diff <= 0) {
             diff = 0;
