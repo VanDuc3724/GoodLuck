@@ -6,9 +6,9 @@ namespace GoodLuck.Controllers
 {
     public class LettersController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly DbContext _context;
 
-        public LettersController(AppDbContext context)
+        public LettersController(DbContext context)
         {
             _context = context;
         }

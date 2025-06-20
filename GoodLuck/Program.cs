@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using GoodLuck.Models;
+using GoodLuck.Repositories;
 
 namespace GoodLuck
 {
@@ -11,8 +12,8 @@ namespace GoodLuck
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddDbContext<GoodLuck.Models.AppDbContext>(options =>
-                options.UseInMemoryDatabase("GoodLuckDb"));
+            builder.Services.AddDbContext<DBContext>(options =>
+               options.UseInMemoryDatabase("GoodLuckDb"));
 
             var app = builder.Build();
 
