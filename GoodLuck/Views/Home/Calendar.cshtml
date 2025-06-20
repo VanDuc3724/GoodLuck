@@ -55,12 +55,13 @@
     var classes = "day";
     if (date.Month != displayDate.Month) classes += " other-month";
     if (ann != null) classes += " event";
+    var icon = ann?.Icon ?? "\uD83D\uDC95";
 
-<div class="@classes">
+<div class="@classes" data-icon="@icon">
     <div class="date-num">@date.Day</div>
     @if (ann != null)
     {
-        <div class="event-title">@ann.Title</div>
+        <div class="event-title">@ann.Icon @ann.Title</div>
     }
 </div>
 }
