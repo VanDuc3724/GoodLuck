@@ -316,7 +316,7 @@ body {
 }
 
 .day.event::before {
-    content: '💕';
+    content: attr(data-icon);
     position: absolute;
     top: 5px;
     right: 5px;

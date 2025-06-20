@@ -15,5 +15,9 @@ namespace GoodLuck.Models
 
         // Optional message to display when the event starts
         public string? Message { get; set; }
+
+        // Icon to display for the event (emoji or character)
+        [Required]
+        public string Icon { get; set; } = "\uD83D\uDC95"; // default to 💕
     }
 }

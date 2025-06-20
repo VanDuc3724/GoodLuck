@@ -9,6 +9,7 @@
         <tr>
             <th>Title</th>
             <th>Date</th>
+            <th>Icon</th>
             <th>Message</th>
             <th></th>
         </tr>
@@ -19,6 +20,7 @@
         <tr>
             <td>@item.Title</td>
             <td>@item.Date.ToString("yyyy-MM-dd HH:mm")</td>
+            <td>@item.Icon</td>
             <td>@item.Message</td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">Edit</a>
