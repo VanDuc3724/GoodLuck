@@ -42,6 +42,14 @@ namespace GoodLuck.Controllers
             return View();
         }
 
+        public IActionResult Calendar()
+        {
+            var events = _context.Anniversaries
+                                  .OrderBy(a => a.Date)
+                                  .ToList();
+            return View(events);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
