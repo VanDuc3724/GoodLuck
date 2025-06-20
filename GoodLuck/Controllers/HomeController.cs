@@ -68,6 +68,12 @@ namespace GoodLuck.Controllers
             return View();
         }
 
+        public IActionResult Edit()
+        {
+            ViewBag.Photos = LoadPhotos();
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UploadPhotos(List<IFormFile> files, List<string> titles)
@@ -93,7 +99,7 @@ namespace GoodLuck.Controllers
             }
 
             SavePhotos(photos);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Edit));
         }
 
         public IActionResult Privacy()

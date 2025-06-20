@@ -1,0 +1,33 @@
+@{
+    ViewData["Title"] = "Edit Photos";
+}
+
+<h1>Edit Photos</h1>
+<p>
+    <a asp-action="Index" class="btn btn-secondary">Back to Home</a>
+</p>
+
+@if (ViewBag.Photos != null)
+{
+    <div class="row mb-4">
+        @foreach (GoodLuck.Models.Photo p in ViewBag.Photos)
+        {
+            <div class="col-md-3 text-center mb-3">
+                <img src="~/uploads/@p.FileName" alt="@p.Title" class="img-fluid" />
+                <div>@p.Title</div>
+            </div>
+        }
+    </div>
+}
+
+<form asp-action="UploadPhotos" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <input type="file" name="files" accept="image/*" class="form-control" />
+        <input type="text" name="titles" placeholder="Tên ảnh" class="form-control mt-2" />
+    </div>
+    <div class="mb-3">
+        <input type="file" name="files" accept="image/*" class="form-control" />
+        <input type="text" name="titles" placeholder="Tên ảnh" class="form-control mt-2" />
+    </div>
+    <button type="submit" class="btn btn-primary">Tải lên</button>
+</form>
