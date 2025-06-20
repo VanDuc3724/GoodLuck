@@ -645,9 +645,19 @@ body {
     gap: 20px;
 }
 
+.love-frame .photo-frame {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
 .love-photo {
-    width: 120px;
-    height: auto;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     border-radius: 10px;
 }
 
