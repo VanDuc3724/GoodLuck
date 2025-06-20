@@ -47,26 +47,26 @@ namespace GoodLuck.Controllers
             System.IO.File.WriteAllText(file, json);
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             // Find the nearest upcoming anniversary (including today)
-            var upcoming = _context.Anniversaries
+            var upcoming = await _context.Anniversaries
                                    .Where(a => a.Date >= DateTime.Today)
                                    .OrderBy(a => a.Date)
-                                   .FirstOrDefault();
+                                   .FirstOrDefaultAsync();
 
             if (upcoming != null)
             {
-                var letter = _context.Letters
+                var letter = await _context.Letters
                                    .Include(l => l.Anniversary)
-                                   .FirstOrDefault(l => l.AnniversaryId == upcoming.Id);
+                                   .FirstOrDefaultAsync(l => l.AnniversaryId == upcoming.Id);
                 ViewBag.NextLetter = letter;
             }
 
             ViewBag.NextAnniversary = upcoming;
             ViewBag.Photos = LoadPhotos().TakeLast(2).ToList();
 
-            var first = _context.Anniversaries.OrderBy(a => a.Date).FirstOrDefault();
+            var first = await _context.Anniversaries.OrderBy(a => a.Date).FirstOrDefaultAsync();
             int daysTogether = 0;
             if (first != null)
             {
@@ -77,10 +77,10 @@ namespace GoodLuck.Controllers
             return View();
         }
 
-        public IActionResult Edit()
+        public async Task<IActionResult> Edit()
         {
             ViewBag.Photos = LoadPhotos();
-            var first = _context.Anniversaries.OrderBy(a => a.Date).FirstOrDefault();
+            var first = await _context.Anniversaries.OrderBy(a => a.Date).FirstOrDefaultAsync();
             ViewBag.StartDate = first?.Date.ToString("yyyy-MM-dd") ?? DateTime.Today.ToString("yyyy-MM-dd");
             return View();
         }
@@ -136,7 +136,7 @@ namespace GoodLuck.Controllers
             return View();
         }
 
-        public IActionResult Calendar(int? month, int? year)
+        public async Task<IActionResult> Calendar(int? month, int? year)
         {
             DateTime displayDate;
             if (month.HasValue && year.HasValue)
@@ -156,10 +156,10 @@ namespace GoodLuck.Controllers
                 displayDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
             }
 
-            var events = _context.Anniversaries
+            var events = await _context.Anniversaries
                                   .Where(a => a.Date.Year == displayDate.Year && a.Date.Month == displayDate.Month)
                                   .OrderBy(a => a.Date)
-                                  .ToList();
+                                  .ToListAsync();
 
             ViewBag.DisplayDate = displayDate;
             return View(events);
