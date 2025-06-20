@@ -10,6 +10,11 @@
         <span asp-validation-for="Title" class="text-danger"></span>
     </div>
     <div class="mb-3">
+        <label asp-for="SubTitle" class="form-label"></label>
+        <input asp-for="SubTitle" class="form-control"></>
+        <span asp-validation-for="SubTitle" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
         <label asp-for="Date" class="form-label"></label>
         <input asp-for="Date" type="datetime-local" class="form-control" />
         <span asp-validation-for="Date" class="text-danger"></span>
@@ -19,11 +24,7 @@
         <input asp-for="Icon" class="form-control" />
         <span asp-validation-for="Icon" class="text-danger"></span>
     </div>
-    <div class="mb-3">
-        <label asp-for="SubTitle" class="form-label"></label>
-        <textarea asp-for="SubTitle" class="form-control"></textarea>
-        <span asp-validation-for="SubTitle" class="text-danger"></span>
-    </div>
+    
     <h2>Letter</h2>
     <div class="mb-3">
         <label asp-for="LetterContent" class="form-label"></label>
