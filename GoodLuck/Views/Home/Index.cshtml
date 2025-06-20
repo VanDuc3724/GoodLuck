@@ -84,12 +84,12 @@
                     <div class="countdown">
                         Còn lại <span id="countdown"></span> nữa đến sự kiện "@ViewBag.NextAnniversary.Title"
                     </div>
-                    @if (ViewBag.NextLetter != null)
+                    @if (ViewBag.EventLetter != null)
                     {
                         <div class="special-message" id="eventLetter">
                             <button class="close-btn" onclick="hideEventLetter()">×</button>
                             <div class="message-text">
-                                @Html.Raw(((GoodLuck.Models.Letter)ViewBag.NextLetter).Content.Replace("\n", "<br>"))
+                                @Html.Raw(((string)ViewBag.EventLetter).Replace("\n", "<br>"))
                             </div>
                         </div>
                     }

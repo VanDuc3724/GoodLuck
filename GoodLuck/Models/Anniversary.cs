@@ -19,5 +19,10 @@ namespace GoodLuck.Models
         // Icon to display for the event (emoji or character)
         [Required]
         public string Icon { get; set; } = "\uD83D\uDC95"; // default to 💕
+
+        // Optional letter associated with this anniversary
+        public string? LetterTitle { get; set; }
+        public string? LetterContent { get; set; }
+        public DateTime? LetterCreated { get; set; }
     }
 }

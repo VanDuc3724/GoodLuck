@@ -9,7 +9,6 @@ namespace GoodLuck.Repositories
         {
         }
 
-        public DbSet<Letter> Letters => Set<Letter>();
         public DbSet<Anniversary> Anniversaries => Set<Anniversary>();
     }
 }
