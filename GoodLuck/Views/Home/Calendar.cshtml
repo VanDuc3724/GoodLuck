@@ -1,21 +1,49 @@
 @model IEnumerable<GoodLuck.Models.Anniversary>
-<h1>Lịch Sự Kiện</h1>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Ngày</th>
-            <th>Tiêu đề</th>
-            <th>Thông điệp</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model)
-{
-        <tr>
-            <td>@item.Date.ToString("yyyy-MM-dd")</td>
-            <td>@item.Title</td>
-            <td>@item.Message</td>
-        </tr>
+
+@{
+    var now = DateTime.Today;
+    var firstOfMonth = new DateTime(now.Year, now.Month, 1);
+    var daysInMonth = DateTime.DaysInMonth(now.Year, now.Month);
+    var startOffset = (int)firstOfMonth.DayOfWeek;
+    var eventsByDay = Model
+        .GroupBy(a => a.Date.Date)
+        .ToDictionary(g => g.Key, g => g.ToList());
 }
-    </tbody>
-</table>
+
+<div class="calendar-book">
+    <h2 class="text-center">@now.ToString("MMMM yyyy")</h2>
+    <div class="calendar">
+        <div class="day-header">CN</div>
+        <div class="day-header">T2</div>
+        <div class="day-header">T3</div>
+        <div class="day-header">T4</div>
+        <div class="day-header">T5</div>
+        <div class="day-header">T6</div>
+        <div class="day-header">T7</div>
+
+@for (int i = 0; i < startOffset + daysInMonth; i++)
+{
+    if (i < startOffset)
+    {
+        <div class="day other-month"></div>
+    }
+    else
+    {
+        var day = i - startOffset + 1;
+        var date = firstOfMonth.AddDays(day - 1);
+        var hasEvent = eventsByDay.ContainsKey(date);
+        var cssClass = hasEvent ? "day event" : "day";
+        <div class="@cssClass">
+            <div class="date-num">@day</div>
+            @if (hasEvent)
+            {
+                foreach (var ev in eventsByDay[date])
+                {
+                    <div class="event-title">@ev.Title</div>
+                }
+            }
+        </div>
+    }
+}
+    </div>
+</div>

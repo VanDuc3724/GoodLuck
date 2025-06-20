@@ -20,3 +20,51 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.calendar-book {
+  max-width: 800px;
+  margin: 20px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.day-header {
+  text-align: center;
+  font-weight: bold;
+  padding: 5px 0;
+  background: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+}
+
+.day {
+  border: 1px solid #ddd;
+  min-height: 80px;
+  padding: 4px;
+  position: relative;
+}
+
+.day.other-month {
+  background: #f9f9f9;
+}
+
+.day.event {
+  background: #fff7f9;
+}
+
+.date-num {
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.event-title {
+  font-size: 0.8rem;
+  line-height: 1.1rem;
+}
