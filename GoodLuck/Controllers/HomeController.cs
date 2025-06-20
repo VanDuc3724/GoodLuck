@@ -2,6 +2,7 @@ using System.Diagnostics;
 using GoodLuck.Models;
 using GoodLuck.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GoodLuck.Controllers
 {
@@ -23,6 +24,14 @@ namespace GoodLuck.Controllers
                                    .Where(a => a.Date >= DateTime.Today)
                                    .OrderBy(a => a.Date)
                                    .FirstOrDefault();
+
+            if (upcoming != null)
+            {
+                var letter = _context.Letters
+                                   .Include(l => l.Anniversary)
+                                   .FirstOrDefault(l => l.AnniversaryId == upcoming.Id);
+                ViewBag.NextLetter = letter;
+            }
 
             ViewBag.NextAnniversary = upcoming;
             return View();

@@ -72,6 +72,15 @@
                     <div class="countdown">
                         Còn lại <span id="countdown"></span> nữa đến sự kiện "@ViewBag.NextAnniversary.Title"
                     </div>
+                    @if (ViewBag.NextLetter != null)
+                    {
+                        <div class="special-message" id="eventLetter">
+                            <button class="close-btn" onclick="hideEventLetter()">×</button>
+                            <div class="message-text">
+                                @Html.Raw(((GoodLuck.Models.Letter)ViewBag.NextLetter).Content.Replace("\n", "<br>"))
+                            </div>
+                        </div>
+                    }
                 }
 
                 <div class="message">
@@ -179,6 +188,15 @@ function hideLoveMessage() {
     document.getElementById('loveMessage').style.display = 'none';
 }
 
+function showEventLetter() {
+    const el = document.getElementById('eventLetter');
+    if (el) el.style.display = 'block';
+}
+function hideEventLetter() {
+    const el = document.getElementById('eventLetter');
+    if (el) el.style.display = 'none';
+}
+
 function createFireworks() {
     // placeholder for fireworks effect
 }
@@ -205,12 +223,16 @@ function togglePlay(btn) {
 function startCountdown(dateString) {
     const target = new Date(dateString);
     const span = document.getElementById('countdown');
+    const letterDiv = document.getElementById('eventLetter');
     if (!span) return;
 
     function update() {
         const now = new Date();
         let diff = target - now;
-        if (diff < 0) diff = 0;
+        if (diff <= 0) {
+            diff = 0;
+            if (letterDiv) letterDiv.style.display = 'block';
+        }
 
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         diff -= days * 1000 * 60 * 60 * 24;

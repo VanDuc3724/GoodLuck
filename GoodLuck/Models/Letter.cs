@@ -15,5 +15,11 @@ namespace GoodLuck.Models
         [Required]
 
         public DateTime Created { get; set; }
+
+        // Link to an anniversary so the letter can be displayed
+        // when the event occurs
+        [Required]
+        public int AnniversaryId { get; set; }
+        public Anniversary? Anniversary { get; set; }
     }
 }
