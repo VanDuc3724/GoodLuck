@@ -34,6 +34,12 @@ namespace GoodLuck.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Letter letter)
         {
+            // Ensure the selected anniversary exists before saving
+            if (!_context.Anniversaries.Any(a => a.Id == letter.AnniversaryId))
+            {
+                ModelState.AddModelError("AnniversaryId", "Anniversary does not exist.");
+            }
+
             if (ModelState.IsValid)
             {
                 letter.Created = DateTime.UtcNow;
