@@ -20,6 +20,69 @@ namespace GoodLuck.Controllers
             return View(anniversaries);
         }
 
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var anniversary = await _context.Anniversaries.FindAsync(id);
+            if (anniversary == null)
+            {
+                return NotFound();
+            }
+            return View(anniversary);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, Anniversary anniversary)
+        {
+            if (id != anniversary.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                _context.Update(anniversary);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(anniversary);
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var anniversary = await _context.Anniversaries
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (anniversary == null)
+            {
+                return NotFound();
+            }
+
+            return View(anniversary);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var anniversary = await _context.Anniversaries.FindAsync(id);
+            if (anniversary != null)
+            {
+                _context.Anniversaries.Remove(anniversary);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
         public IActionResult Create()
         {
             return View();
