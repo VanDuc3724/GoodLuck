@@ -12,8 +12,10 @@ namespace GoodLuck
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<DBContext>(options =>
-               options.UseInMemoryDatabase("GoodLuckDb"));
+               options.UseSqlServer(connectionString));
 
             var app = builder.Build();
 
