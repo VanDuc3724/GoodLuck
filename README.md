@@ -9,7 +9,7 @@ Ví dụ chuỗi kết nối:
 
 ```json
 "ConnectionStrings": {
-    "DefaultConnection": "Server=(local);Database=Netflixx;User Id=sa;Password=sa123;TrustServerCertificate=true;"
+    "DefaultConnection": "Server=(local);Database=Love;User Id=sa;Password=sa123;TrustServerCertificate=true;"
 }
 ```
 
