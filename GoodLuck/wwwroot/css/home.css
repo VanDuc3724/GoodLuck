@@ -634,3 +634,32 @@ body {
     cursor: pointer;
     border-radius: 5px;
 }
+
+/* Love frame on home page */
+.love-frame {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    margin: 0 auto 20px;
+    border: 8px solid rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+}
+
+.love-frame .heart-icon {
+    font-size: 4rem;
+}
+
+.love-frame .days-count {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+}
