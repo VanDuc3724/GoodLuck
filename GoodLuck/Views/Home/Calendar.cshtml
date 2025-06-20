@@ -1,55 +1,157 @@
-@model IEnumerable<GoodLuck.Models.Anniversary>
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💕 Lịch Kỷ Niệm - My Princess</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/Calender.css" />
 
-@{
-    var now = (DateTime)ViewBag.DisplayDate;
-    var firstOfMonth = new DateTime(now.Year, now.Month, 1);
-    var daysInMonth = DateTime.DaysInMonth(now.Year, now.Month);
-    var startOffset = (int)firstOfMonth.DayOfWeek;
-    var eventsByDay = Model
-        .GroupBy(a => a.Date.Date)
-        .ToDictionary(g => g.Key, g => g.ToList());
-    var prev = now.AddMonths(-1);
-    var next = now.AddMonths(1);
-}
+</head>
+<body>
+    <!-- Floating 3D Hearts -->
+    <div class="heart-3d" style="top: 10%; left: 10%; animation-delay: 0s;">💖</div>
+    <div class="heart-3d" style="top: 20%; right: 15%; animation-delay: 2s;">💕</div>
+    <div class="heart-3d" style="bottom: 30%; left: 20%; animation-delay: 4s;">💗</div>
+    <div class="heart-3d" style="bottom: 20%; right: 10%; animation-delay: 1s;">💝</div>
+    <div class="heart-3d" style="top: 50%; left: 5%; animation-delay: 3s;">❤️</div>
+    <div class="heart-3d" style="top: 60%; right: 5%; animation-delay: 5s;">💞</div>
 
-<div class="calendar-book">
-    <div class="calendar-nav text-center mb-3">
-        <a asp-action="Calendar" asp-route-month="@prev.Month" asp-route-year="@prev.Year" class="btn btn-sm btn-secondary">&laquo;</a>
-        <span class="mx-2 fw-bold">@now.ToString("MMMM yyyy")</span>
-        <a asp-action="Calendar" asp-route-month="@next.Month" asp-route-year="@next.Year" class="btn btn-sm btn-secondary">&raquo;</a>
-    </div>
-    <div class="calendar">
-        <div class="day-header">CN</div>
-        <div class="day-header">T2</div>
-        <div class="day-header">T3</div>
-        <div class="day-header">T4</div>
-        <div class="day-header">T5</div>
-        <div class="day-header">T6</div>
-        <div class="day-header">T7</div>
+    <!-- Back Button -->
+    <a href="#" class="back-btn">
+        ← Về Trang Chủ
+    </a>
 
-@for (int i = 0; i < startOffset + daysInMonth; i++)
-{
-    if (i < startOffset)
-    {
-        <div class="day other-month"></div>
-    }
-    else
-    {
-        var day = i - startOffset + 1;
-        var date = firstOfMonth.AddDays(day - 1);
-        var hasEvent = eventsByDay.ContainsKey(date);
-        var cssClass = hasEvent ? "day event" : "day";
-        <div class="@cssClass">
-            <div class="date-num">@day</div>
-            @if (hasEvent)
-            {
-                foreach (var ev in eventsByDay[date])
-                {
-                    <div class="event-title">@ev.Title</div>
-                }
-            }
+    <div class="container">
+        <div class="calendar-book">
+            <div class="calendar-nav">
+                <a href="#" class="nav-btn">‹ Tháng Trước</a>
+                <span class="calendar-title">Tháng 6, 2025</span>
+                <a href="#" class="nav-btn">Tháng Sau ›</a>
+            </div>
+
+            <div class="calendar">
+                <div class="day-header">CN</div>
+                <div class="day-header">T2</div>
+                <div class="day-header">T3</div>
+                <div class="day-header">T4</div>
+                <div class="day-header">T5</div>
+                <div class="day-header">T6</div>
+                <div class="day-header">T7</div>
+
+                <!-- Sample calendar days -->
+                <div class="day other-month"></div>
+                <div class="day other-month"></div>
+                <div class="day other-month"></div>
+                <div class="day other-month"></div>
+                <div class="day other-month"></div>
+                <div class="day other-month"></div>
+                <div class="day">
+                    <div class="date-num">1</div>
+                </div>
+
+                <div class="day">
+                    <div class="date-num">2</div>
+                </div>
+                <div class="day">
+                    <div class="date-num">3</div>
+                </div>
+                <div class="day">
+                    <div class="date-num">4</div>
+                </div>
+                <div class="day">
+                    <div class="date-num">5</div>
+                </div>
+                <div class="day">
+                    <div class="date-num">6</div>
+                </div>
+                <div class="day">
+                    <div class="date-num">7</div>
+                </div>
+                <div class="day">
+                    <div class="date-num">8</div>
+                </div>
+
+                <div class="day">
+                    <div class="date-num">9</div>
+                </div>
+                <div class="day">
+                    <div class="date-num">10</div>
+                </div>
+                <div class="day">
+                    <div class="date-num">11</div>
+                </div>
+                <div class="day">
+                    <div class="date-num">12</div>
+                </div>
+                <div class="day">
+                    <div class="date-num">13</div>
+                </div>
+                <div class="day event">
+                    <div class="date-num">14</div>
+                    <div class="event-title">💕 Ngày Yêu</div>
+                </div>
+                <div class="day">
+                    <div class="date-num">15</div>
+                </div>
+
+                <div class="day">
+                    <div class="date-num">16</div>
+                </div>
+                <div class="day">
+                    <div class="date-num">17</div>
+                </div>
+                <div class="day">
+                    <div class="date-num">18</div>
+                </div>
+                <div class="day">
+                    <div class="date-num">19</div>
+                </div>
+                <div class="day event">
+                    <div class="date-num">20</div>
+                    <div class="event-title">🎂 Sinh Nhật Em</div>
+                </div>
+                <div class="day">
+                    <div class="date-num">21</div>
+                </div>
+                <div class="day">
+                    <div class="date-num">22</div>
+                </div>
+
+                <div class="day">
+                    <div class="date-num">23</div>
+                </div>
+                <div class="day">
+                    <div class="date-num">24</div>
+                </div>
+                <div class="day event">
+                    <div class="date-num">25</div>
+                    <div class="event-title">💑 Kỷ Niệm 1 Năm</div>
+                </div>
+                <div class="day">
+                    <div class="date-num">26</div>
+                </div>
+                <div class="day">
+                    <div class="date-num">27</div>
+                </div>
+                <div class="day">
+                    <div class="date-num">28</div>
+                </div>
+                <div class="day">
+                    <div class="date-num">29</div>
+                </div>
+
+                <div class="day">
+                    <div class="date-num">30</div>
+                </div>
+                <div class="day other-month"></div>
+                <div class="day other-month"></div>
+                <div class="day other-month"></div>
+                <div class="day other-month"></div>
+                <div class="day other-month"></div>
+                <div class="day other-month"></div>
+            </div>
         </div>
-    }
-}
     </div>
-</div>
+</body>
+</html>
