@@ -638,15 +638,17 @@ body {
 /* Love frame on home page */
 .love-frame {
     position: relative;
-    width: 220px;
-    height: 220px;
     margin: 0 auto 20px;
-    border: 8px solid rgba(255, 255, 255, 0.4);
-    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(10px);
+    gap: 20px;
+}
+
+.love-photo {
+    width: 120px;
+    height: auto;
+    border-radius: 10px;
 }
 
 .love-frame .heart-icon {
