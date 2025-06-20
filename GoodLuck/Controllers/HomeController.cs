@@ -121,7 +121,14 @@ namespace GoodLuck.Controllers
             }
             else
             {
-                _context.Anniversaries.Add(new Anniversary { Title = "Ngày Bắt Đầu", Date = startDate.Date });
+                _context.Anniversaries.Add(new Anniversary
+                {
+                    Title = "Ngày Bắt Đầu",
+                    Date = startDate.Date,
+                    SubTitle = string.Empty,
+                    Icon = "\uD83D\uDC95",
+                    LetterContent = string.Empty
+                });
             }
             await _context.SaveChangesAsync();
 

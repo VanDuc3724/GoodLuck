@@ -14,14 +14,13 @@ namespace GoodLuck.Models
         public DateTime Date { get; set; }
 
         [Required]
-
-        public string? SubTitle { get; set; }
+        public string SubTitle { get; set; } = string.Empty;
 
         [Required]
         public string Icon { get; set; } = "\uD83D\uDC95"; // default to 💕
 
         [Required]
-        public string? LetterContent { get; set; }
+        public string LetterContent { get; set; } = string.Empty;
 
     }
 }
