@@ -13,16 +13,15 @@ namespace GoodLuck.Models
 
         public DateTime Date { get; set; }
 
-        // Optional message to display when the event starts
-        public string? Message { get; set; }
+        [Required]
 
-        // Icon to display for the event (emoji or character)
+        public string? SubTitle { get; set; }
+
         [Required]
         public string Icon { get; set; } = "\uD83D\uDC95"; // default to 💕
 
-        // Optional letter associated with this anniversary
-        public string? LetterTitle { get; set; }
+        [Required]
         public string? LetterContent { get; set; }
-        public DateTime? LetterCreated { get; set; }
+
     }
 }
