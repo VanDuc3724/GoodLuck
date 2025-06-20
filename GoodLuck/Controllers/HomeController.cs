@@ -77,41 +77,45 @@ namespace GoodLuck.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveSettings(List<IFormFile> files, List<string> titles, DateTime startDate)
         {
-            var existing = await LoadPhotos();
             var dir = Path.Combine(_env.WebRootPath, UploadFolder);
-
-            if (Directory.Exists(dir))
-            {
-                foreach (var p in existing)
-                {
-                    var path = Path.Combine(dir, p.FileName);
-                    if (System.IO.File.Exists(path))
-                    {
-                        System.IO.File.Delete(path);
-                    }
-                }
-            }
-
-            if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-
             var photos = new List<Photo>();
-            for (int i = 0; i < files.Count; i++)
-            {
-                var file = files[i];
-                if (file != null && file.Length > 0)
-                {
-                    var fileName = Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + Path.GetExtension(file.FileName);
-                    var path = Path.Combine(dir, fileName);
-                    using (var stream = new FileStream(path, FileMode.Create))
-                    {
-                        await file.CopyToAsync(stream);
-                    }
-                    var title = titles.Count > i ? titles[i] : Path.GetFileNameWithoutExtension(file.FileName);
-                    photos.Add(new Photo { FileName = fileName, Title = title, Uploaded = DateTime.UtcNow });
-                }
-            }
 
-            await SavePhotos(photos);
+            if (files.Count > 0)
+            {
+                var existing = await LoadPhotos();
+
+                if (Directory.Exists(dir))
+                {
+                    foreach (var p in existing)
+                    {
+                        var path = Path.Combine(dir, p.FileName);
+                        if (System.IO.File.Exists(path))
+                        {
+                            System.IO.File.Delete(path);
+                        }
+                    }
+                }
+
+                if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+
+                for (int i = 0; i < files.Count; i++)
+                {
+                    var file = files[i];
+                    if (file != null && file.Length > 0)
+                    {
+                        var fileName = Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + Path.GetExtension(file.FileName);
+                        var path = Path.Combine(dir, fileName);
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+                        var title = titles.Count > i ? titles[i] : Path.GetFileNameWithoutExtension(file.FileName);
+                        photos.Add(new Photo { FileName = fileName, Title = title, Uploaded = DateTime.UtcNow });
+                    }
+                }
+
+                await SavePhotos(photos);
+            }
 
             var first = await _context.Anniversaries.OrderBy(a => a.Date).FirstOrDefaultAsync();
             if (first != null)
